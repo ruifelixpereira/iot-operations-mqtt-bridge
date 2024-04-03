@@ -1,0 +1,28 @@
+apiVersion: az-edge.com/v1alpha4
+kind: MqttBridgeConnector
+metadata:
+  name: "energy-mqtt-bridge"
+  namespace: "default" # <SAME NAMESPACE AS BROKER> # For example "default"
+spec:
+  image: 
+    repository: alicesprings.azurecr.io/mqttbridge 
+    tag: 0.6.0
+    pullPolicy: IfNotPresent
+  protocol: v5
+  bridgeInstances: 1
+  clientIdPrefix: "energy-grid-"
+  logLevel: "debug"
+  remoteBrokerConnection:
+    endpoint: "energy-eg-ns-002.eastus2-1.ts.eventgrid.azure.net:8883" # MQTT hostname of the Event Grid namespace
+    tls:
+      tlsEnabled: true
+    authentication:
+      systemAssignedManagedIdentity:
+        audience: https://eventgrid.azure.net
+  ## Uncomment to customize local broker connection
+  # localBrokerConnection:
+  #   endpoint: "azedge-dmqtt-frontend:1883"
+  #   tls:
+  #     tlsEnabled: false
+  #   authentication:
+  #     kubernetes: {}

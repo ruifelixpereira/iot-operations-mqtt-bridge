@@ -1,0 +1,33 @@
+apiVersion: az-edge.com/v1alpha4
+kind: MqttBridgeTopicMap
+metadata:
+  name: "energy-topic-map"
+  namespace: default # <SAME NAMESPACE AS BROKER> # For example "default"
+spec:
+  # Name of the MqttBridgeConnector resource to link to. Required.
+  mqttBridgeConnectorRef: "energy-mqtt-bridge"
+  # A list of routes for bridging. Required.
+  routes:
+      # Direction of message flow. Required.
+    - direction: remote-to-local
+      # Name of the route. Required
+      name: "first-route"
+      # MQTT quality of service (QoS). Optional
+      qos: 0
+      # Remote Source MQTT topic. Can have wildcards. Required.
+      source: "c2e"
+      # Local Target MQTT topic. Cannot have wildcards.
+      # Optional, if not specified it would be same as source.
+      target: "c2ecommands"
+      # Shared subscription configuration. Optional.
+      # Activates a configured number of clients for additional scale.
+      sharedSubscription:
+        # Number of clients to use for shared subscription.
+        groupMinimumShareNumber: 3
+        # Shared subscription group name.
+        groupName: "group1"
+    - direction: local-to-remote
+      name: "second-route"
+      qos: 1
+      source: "telemetry"
+      target: "telemetry/readings"

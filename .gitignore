@@ -1,0 +1,5 @@
+MYLOG.md
+*.crt
+*.key
+*.pem
+settings.json

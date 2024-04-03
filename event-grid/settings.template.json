@@ -1,0 +1,10 @@
+{
+    "resource_group": "<RESOURCE_GROUP_NAME>",
+    "subscription_id": "<SUBSCRIPTION_ID>",
+    "k8s_extension_name": "e4k-edge",
+    "k8s_context": "<K8S_CONTEXT>",
+    "k8s_cluster_name": "<K8S_CLUSTER_NAME>",
+    "event_grid_namespace": "<EVENT_GRID_NAMESPACE>",
+    "event_grid_topic_space": "energy",
+    "event_grid_topic_template": "telemetry"
+}
